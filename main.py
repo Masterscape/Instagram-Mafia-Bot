@@ -63,12 +63,11 @@ def send_message_to_self(client: Client, message: str, output_to_console: bool =
 def parse_and_send_out_the_roles(client: Client) -> None:
     players: list[str] = [player for player in getenv("PLAYER_LIST", "").split(",") if player]
     minimum_players_required: int = 4
-    debug: bool = bool(getenv("DEBUG"))
+    debug: str = getenv("DEBUG").lower()
 
-    send_message_to_self(client, "Trying to start a new game..."
-                                 f"Players: {players}", False)
+    send_message_to_self(client, "Trying to start a new game...", False)
 
-    if debug:
+    if debug == "true":
         send_message_to_self(client, "DEBUG enabled.")
         while len(players) < minimum_players_required:
             players.append(client.username)
